@@ -1,19 +1,29 @@
 /* eslint-disable no-param-reassign */
 const botaoCriarTarefa = document.querySelector('#criar-tarefa');
 const inputTexto = document.querySelector('#texto-tarefa');
+const listaTarefa = document.querySelector('#lista-tarefas');
+
 botaoCriarTarefa.addEventListener('click', () => {
   const li = document.createElement('li');
   li.innerText = inputTexto.value;
-  document.querySelector('#lista-tarefas').appendChild(li);
+  listaTarefa.appendChild(li);
   inputTexto.value = '';
 });
 
-document.querySelector('#lista-tarefas').addEventListener('click', (event) => {
+listaTarefa.addEventListener('click', (event) => {
   const verificador = document.querySelector('.itemSelecionado');
   if (verificador === null) {
-    event.target.className = 'itemSelecionado';
+    event.target.classList.add('itemSelecionado');
   } else {
-    verificador.classList.remove('itemSelecionado');
-    event.target.className = 'itemSelecionado';
+    verificador.classList.remove('itemSelecionado'); // https://www.w3schools.com/howto/howto_js_remove_class.asp <-- me ajudou nessa parte
+    event.target.classList.add('itemSelecionado');
+  }
+});
+
+listaTarefa.addEventListener('dblclick', (event) => {
+  if (event.target.classList[0] === 'completed' || event.target.classList[1] === 'completed') {
+    event.target.classList.remove('completed');
+  } else {
+    event.target.classList.add('completed'); // https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/add <-- me ajudou nessa parte
   }
 });
