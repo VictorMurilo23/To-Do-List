@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const botaoCriarTarefa = document.querySelector('#criar-tarefa');
 const inputTexto = document.querySelector('#texto-tarefa');
 botaoCriarTarefa.addEventListener('click', () => {
@@ -8,6 +9,11 @@ botaoCriarTarefa.addEventListener('click', () => {
 });
 
 document.querySelector('#lista-tarefas').addEventListener('click', (event) => {
-  // eslint-disable-next-line no-param-reassign
-  event.target.style.backgroundColor = 'gray';
+  const verificador = document.querySelector('.itemSelecionado');
+  if (verificador === null) {
+    event.target.className = 'itemSelecionado';
+  } else {
+    verificador.classList.remove('itemSelecionado');
+    event.target.className = 'itemSelecionado';
+  }
 });
