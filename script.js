@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const botaoCriarTarefa = document.querySelector('#criar-tarefa');
 const inputTexto = document.querySelector('#texto-tarefa');
 const listaTarefa = document.querySelector('#lista-tarefas');
@@ -25,5 +24,11 @@ listaTarefa.addEventListener('dblclick', (event) => {
     event.target.classList.remove('completed');
   } else {
     event.target.classList.add('completed'); // https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/add <-- me ajudou nessa parte
+  }
+});
+
+document.querySelector('#apaga-tudo').addEventListener('click', () => {
+  for (let index = listaTarefa.childElementCount; index > 0; index -= 1) {
+    listaTarefa.removeChild(listaTarefa.firstElementChild);
   }
 });
