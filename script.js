@@ -32,3 +32,10 @@ document.querySelector('#apaga-tudo').addEventListener('click', () => {
     listaTarefa.removeChild(listaTarefa.firstElementChild);
   }
 });
+
+document.querySelector('#remover-finalizados').addEventListener('click', () => {
+  const coisa = document.querySelectorAll('.completed');
+  for (let index = 0; index < coisa.length; index += 1) {
+    coisa[index].remove();
+  }
+});
