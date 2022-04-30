@@ -34,8 +34,13 @@ document.querySelector('#apaga-tudo').addEventListener('click', () => {
 });
 
 document.querySelector('#remover-finalizados').addEventListener('click', () => {
-  const coisa = document.querySelectorAll('.completed');
-  for (let index = 0; index < coisa.length; index += 1) {
-    coisa[index].remove();
+  const finalizados = document.querySelectorAll('.completed');
+  for (let index = 0; index < finalizados.length; index += 1) {
+    finalizados[index].remove();
   }
+});
+
+document.querySelector('#remover-selecionado').addEventListener('click', () => {
+  const selecionado = document.querySelector('.itemSelecionado');
+  selecionado.remove();
 });
