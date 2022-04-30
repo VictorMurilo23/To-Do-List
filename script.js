@@ -26,6 +26,7 @@ botaoCriarTarefa.addEventListener('click', () => {
 });
 
 listaTarefa.addEventListener('click', (event) => {
+  // eslint-disable-next-line sonarjs/no-duplicate-string
   const verificador = document.querySelector('.itemSelecionado');
   if (verificador === null) {
     event.target.classList.add('itemSelecionado');
@@ -60,7 +61,6 @@ document.querySelector('#remover-selecionado').addEventListener('click', () => {
   document.querySelector('.itemSelecionado').remove();
 });
 
-// eslint-disable-next-line complexity
 document.querySelector('#salvar-tarefas').addEventListener('click', () => {
   const tarefas = {};
   const itensLista = document.querySelectorAll('li');
@@ -70,4 +70,20 @@ document.querySelector('#salvar-tarefas').addEventListener('click', () => {
     }
   }
   localStorage.setItem('listaSalva', JSON.stringify(tarefas)); // https://blog.logrocket.com/localstorage-javascript-complete-guide/ <-- me ajudou muito nessa parte :)
+});
+
+document.querySelector('#mover-cima').addEventListener('click', () => {
+  const requisito13 = document.querySelector('.itemSelecionado');
+  if (requisito13 !== null && requisito13.previousSibling !== null) {
+    const ol = requisito13.parentNode;
+    ol.insertBefore(requisito13, requisito13.previousSibling); // https://developer.mozilla.org/pt-BR/docs/Web/API/Node/insertBefore <-- me ajudou.
+  }
+});
+
+document.querySelector('#mover-baixo').addEventListener('click', () => {
+  const requisito13 = document.querySelector('.itemSelecionado');
+  if (requisito13 !== null && requisito13.nextSibling !== null) {
+    const ol = requisito13.parentNode;
+    ol.insertBefore(requisito13, requisito13.nextSibling.nextSibling); // tem que usar dois nextSibling, se não ele bota no mesmo lugar :D. (demorei)
+  }
 });
