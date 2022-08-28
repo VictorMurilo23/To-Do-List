@@ -2,6 +2,7 @@ const listaToda = JSON.parse(localStorage.getItem('listaSalva'));
 const botaoCriarTarefa = document.querySelector('#criar-tarefa');
 const inputTexto = document.querySelector('#texto-tarefa');
 const listaTarefa = document.querySelector('#lista-tarefas');
+const itemSelecionado = 'itemSelecionado';
 
 function carregarListaSalva() {
   for (let index = 0; index < Object.keys(listaToda).length; index += 1) {
@@ -26,18 +27,20 @@ botaoCriarTarefa.addEventListener('click', () => {
 });
 
 listaTarefa.addEventListener('click', (event) => {
-  // eslint-disable-next-line sonarjs/no-duplicate-string
-  const verificador = document.querySelector('.itemSelecionado');
+  const verificador = document.querySelector(`.${itemSelecionado}`);
   if (verificador === null) {
-    event.target.classList.add('itemSelecionado');
+    event.target.classList.add(itemSelecionado);
   } else {
-    verificador.classList.remove('itemSelecionado'); // https://www.w3schools.com/howto/howto_js_remove_class.asp <-- me ajudou nessa parte
-    event.target.classList.add('itemSelecionado');
+    verificador.classList.remove(itemSelecionado); // https://www.w3schools.com/howto/howto_js_remove_class.asp <-- me ajudou nessa parte
+    event.target.classList.add(itemSelecionado);
   }
 });
 
 listaTarefa.addEventListener('dblclick', (event) => {
-  if (event.target.classList[0] === 'completed' || event.target.classList[1] === 'completed') {
+  if (
+    event.target.classList[0] === 'completed'
+    || event.target.classList[1] === 'completed'
+  ) {
     event.target.classList.remove('completed');
   } else {
     event.target.classList.add('completed'); // https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/add <-- me ajudou nessa parte
@@ -58,22 +61,26 @@ document.querySelector('#remover-finalizados').addEventListener('click', () => {
 });
 
 document.querySelector('#remover-selecionado').addEventListener('click', () => {
-  document.querySelector('.itemSelecionado').remove();
+  document.querySelector(`.${itemSelecionado}`).remove();
 });
 
 document.querySelector('#salvar-tarefas').addEventListener('click', () => {
   const tarefas = {};
   const itensLista = document.querySelectorAll('li');
   for (let index = 0; index < itensLista.length; index += 1) {
-    if (itensLista[index].innerText !== '') { // vai impedir de salvar itens vazios
-      tarefas[index] = [itensLista[index].innerText, itensLista[index].className];
+    if (itensLista[index].innerText !== '') {
+      // vai impedir de salvar itens vazios
+      tarefas[index] = [
+        itensLista[index].innerText,
+        itensLista[index].className,
+      ];
     }
   }
   localStorage.setItem('listaSalva', JSON.stringify(tarefas)); // https://blog.logrocket.com/localstorage-javascript-complete-guide/ <-- me ajudou muito nessa parte :)
 });
 
 document.querySelector('#mover-cima').addEventListener('click', () => {
-  const requisito13 = document.querySelector('.itemSelecionado');
+  const requisito13 = document.querySelector(`.${itemSelecionado}`);
   if (requisito13 !== null && requisito13.previousSibling !== null) {
     const ol = requisito13.parentNode;
     ol.insertBefore(requisito13, requisito13.previousSibling); // https://developer.mozilla.org/pt-BR/docs/Web/API/Node/insertBefore <-- me ajudou.
@@ -81,7 +88,7 @@ document.querySelector('#mover-cima').addEventListener('click', () => {
 });
 
 document.querySelector('#mover-baixo').addEventListener('click', () => {
-  const requisito13 = document.querySelector('.itemSelecionado');
+  const requisito13 = document.querySelector(`.${itemSelecionado}`);
   if (requisito13 !== null && requisito13.nextSibling !== null) {
     const ol = requisito13.parentNode;
     ol.insertBefore(requisito13, requisito13.nextSibling.nextSibling); // tem que usar dois nextSibling, se não ele bota no mesmo lugar :D. (demorei)
